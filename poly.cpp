@@ -1,25 +1,65 @@
-
 #include <iostream>
 #include <string>
 #include "car.h"
 #include "bike.h"
 #include "truck.h"
 #include "garage.h"
-using  namespace std;
+using namespace std;
 
 int main() {
     Garage myGarage;
+    int numVehicles;
 
-    // Create some vehicles and add them to the garage
-    Vehicle* car1 = new Car("Toyota", 150, 4);
-    Vehicle* bike1 = new Bike("Honda", 100);
-    Vehicle* truck1 = new Truck("Volvo", 400, 10.0);
-    Vehicle* car2 = new Car("BMW",360,2);
+    cout << "How many vehicles do you want to add to the garage? ";
+    cin >> numVehicles;
+    
+    for (int i = 0; i < numVehicles; ++i) {
+        cout << "Enter the type of vehicle (car, bike, truck): ";
+        string type;
+        cin >> type;
 
-    myGarage.addVehicle(car1);
-    myGarage.addVehicle(car2);
-    myGarage.addVehicle(bike1);
-    myGarage.addVehicle(truck1);
+        if (type == "car") {
+            string brand;
+            int horsepower, numDoors;
+            cout << "Enter car brand: ";
+            cin >> brand;
+            cout << "Enter horsepower: ";
+            cin >> horsepower;
+            cout << "Enter number of doors: ";
+            cin >> numDoors;
+
+            Vehicle* car = new Car(brand, horsepower, numDoors);
+            myGarage.addVehicle(car);
+        }
+        else if (type == "bike") {
+            string brand;
+            int horsepower;
+            cout << "Enter bike brand: ";
+            cin >> brand;
+            cout << "Enter horsepower: ";
+            cin >> horsepower;
+
+            Vehicle* bike = new Bike(brand, horsepower);
+            myGarage.addVehicle(bike);
+        }
+        else if (type == "truck") {
+            string brand;
+            int horsepower;
+            double loadCapacity;
+            cout << "Enter truck brand: ";
+            cin >> brand;
+            cout << "Enter horsepower: ";
+            cin >> horsepower;
+            cout << "Enter load capacity (in tons): ";
+            cin >> loadCapacity;
+
+            Vehicle* truck = new Truck(brand, horsepower, loadCapacity);
+            myGarage.addVehicle(truck);
+        }
+        else {
+            cout << "Invalid vehicle type. Please enter car, bike, or truck." << endl;
+        }
+    }
 
     // Start all engines
     myGarage.startAllEngines();
